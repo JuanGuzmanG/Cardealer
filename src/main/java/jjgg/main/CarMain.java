@@ -7,6 +7,5 @@ public class Automovil {
         Menu menu = new Menu();
         menu.setVisible(true);
         menu.setLocationRelativeTo(null);
-
     }
 }
