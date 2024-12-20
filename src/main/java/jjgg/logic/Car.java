@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Automovil {
+public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -18,8 +18,18 @@ public class Automovil {
     private String registration;
     private int doors;
 
-    public Automovil() {}
-    public Automovil(String model, String brand, String motor, String color, String registration, int doors) {
+    //constructors
+    public Car() {}
+    public Car(String model, String brand, String motor, String color, String registration, int doors) {
+        this.model = model;
+        this.brand = brand;
+        this.motor = motor;
+        this.color = color;
+        this.registration = registration;
+        this.doors = doors;
+    }
+    public Car(Long id, String model, String brand, String motor, String color, String registration, int doors) {
+        this.id = id;
         this.model = model;
         this.brand = brand;
         this.motor = motor;

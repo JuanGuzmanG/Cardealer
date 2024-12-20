@@ -9,9 +9,29 @@ public class Menu extends JFrame {
     private JButton salirButton;
     private JButton consultaEdicionYBajaButton;
 
+    //windows
+    private AltaAutomoviles aa = new AltaAutomoviles();
+    public void openAltaAutomoviles(AltaAutomoviles altaAutomoviles) {this.aa = altaAutomoviles;}
+    private Ced c = new Ced();
+    public void openceb(Ced c){this.c = c;}
+
     public Menu() {
         setTitle("Menu");
         setContentPane(principaljframe);
-        setSize(400,400);
+        pack();
+
+        altaDeAutomovilesButton.addActionListener(e -> {
+            aa.setMenu(Menu.this);
+            aa.setVisible(true);
+            aa.setLocationRelativeTo(Menu.this);
+            setVisible(false);
+        });
+        consultaEdicionYBajaButton.addActionListener(e -> {
+            c.loadinfo();
+            c.openMenu(Menu.this);
+            c.setVisible(true);
+            c.setLocationRelativeTo(Menu.this);
+            setVisible(false);
+        });
     }
 }
