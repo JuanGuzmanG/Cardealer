@@ -1,6 +1,8 @@
 package jjgg.gui;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
     private JPanel principaljframe;
@@ -33,5 +35,22 @@ public class Menu extends JFrame {
             c.setLocationRelativeTo(Menu.this);
             setVisible(false);
         });
+        salirButton.addActionListener(e ->{
+            System.exit(0);
+        });
+    }
+
+    public void showMessage(String msg,String title,String type) {
+        JOptionPane op = new JOptionPane(msg);
+        if(type.equals("info")){
+            op.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }else if(type.equals("error")){
+            op.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }else if(type.equals("warning")){
+            op.setMessageType(JOptionPane.WARNING_MESSAGE);
+        }
+        JDialog dialog = op.createDialog(title);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
     }
 }

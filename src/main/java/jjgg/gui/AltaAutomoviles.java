@@ -47,17 +47,23 @@ public class AltaAutomoviles extends JFrame {
             int doors = (int)doorsspnr.getValue();
 
             ctr.createCar(model,brand,motor,color,registration,doors);
+            menu.showMessage("Create Successfully","Create","info");
+            clear();
         });
 
         //---clear button
         clearButton.addActionListener(e ->{
-            modeltf.setText("");
-            brandtx.setText("");
-            motortx.setText("");
-            colortx.setText("");
-            registertx.setText("");
-            doorsspnr.setValue(0);
+            clear();
         });
+    }
+
+    public void clear(){
+        modeltf.setText("");
+        brandtx.setText("");
+        motortx.setText("");
+        colortx.setText("");
+        registertx.setText("");
+        doorsspnr.setValue(0);
     }
 
 }

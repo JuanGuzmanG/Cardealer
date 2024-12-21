@@ -4,8 +4,6 @@ import jjgg.logic.Car;
 import jjgg.logic.Controller;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Ced extends JFrame {
@@ -41,35 +39,29 @@ public class Ced extends JFrame {
 
         //----cleartexts
         clearButton.addActionListener(e ->{
-            modeltf.setText("");
-            brandtx.setText("");
-            colortx.setText("");
-            motortx.setText("");
-            registertx.setText("");
-            doorsspnr.setValue(0);
-
+            clear();
+            menu.showMessage("clear","clear","info");
         });
 
         //----edit
         editButton.addActionListener(e ->{
             if(list1.getSelectedValue()!=null){
-                String model = list1.getSelectedValue().toString();
-                Car car = c.getCarByModel(model);
+                Car car = (Car) list1.getSelectedValue();
                 long id = car.getId();
-                c.updatecar(id,modeltf.getText(),brandtx.getText(),colortx.getText(),motortx.getText(),registertx.getText(),(int)doorsspnr.getValue());
+                c.updatecar(id,modeltf.getText(),brandtx.getText(),motortx.getText(),colortx.getText(),registertx.getText(),(int)doorsspnr.getValue());
                 loadinfo();
+                clear();
+                menu.showMessage("edit complete","edit","info");
             } else{
-                System.out.println("vacio");
+                menu.showMessage("No car selected","Error","error");
             }
-
         });
 
         //----load car by selection
         list1.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                if(list1.getSelectedValue() != null){
-                    String model = list1.getSelectedValue().toString();
-                    Car car = c.getCarByModel(model);
+                Car car =(Car)list1.getSelectedValue();
+                if(car != null){
                     modeltf.setText(car.getModel());
                     brandtx.setText(car.getBrand());
                     colortx.setText(car.getColor());
@@ -80,24 +72,34 @@ public class Ced extends JFrame {
             }
         });
         deleteButton.addActionListener(e -> {
-            String model = list1.getSelectedValue().toString();
-            Car car = c.getCarByModel(model);
-            c.deleteCar(car);
-            loadinfo();
+            Car car = (Car) list1.getSelectedValue();
+            if(car != null){
+                c.deleteCar(car);
+                loadinfo();
+                menu.showMessage("Delete complete","delete","warning");
+            } else {
+                menu.showMessage("No car selected","Error","error");
+            }
         });
     }
 
     public void loadinfo() {
-        DefaultListModel<String> dlm = new DefaultListModel<>(); // Crear modelo de lista
+        DefaultListModel<Car> dlm = new DefaultListModel<>(); // Crear modelo de lista
         List<Car> cars = c.getAllCars();
-        List<String> name = new ArrayList<>();
         for(Car c : cars){
-            name.add(c.getModel());
-        }
-        for (String s : name){
-            dlm.addElement(s);
+            dlm.addElement(c);
         }
         list1.setModel(dlm);
+        clear();
+    }
+
+    public void clear(){
+        modeltf.setText("");
+        brandtx.setText("");
+        motortx.setText("");
+        colortx.setText("");
+        registertx.setText("");
+        doorsspnr.setValue(0);
     }
 
 }

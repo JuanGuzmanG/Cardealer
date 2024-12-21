@@ -58,4 +58,8 @@ public class Car {
 
     public int getDoors(){return doors;}
     public void setDoors(int doors){this.doors = doors;}
+
+    public String toString(){
+        return model + "-" + color;
+    }
 }
